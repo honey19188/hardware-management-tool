@@ -8,20 +8,32 @@ permissions:
   contents: write
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - run: echo "Checkout complete"
 
       - uses: actions/setup-node@v4
         with:
           node-version: 18
 
+      - run: echo "Node setup complete"
+
       - run: npm ci
+        shell: bash
+
+      - run: echo "npm ci complete"
 
       - run: npm run build
+        shell: bash
 
-      - uses: peaceiris/actions-gh-pages@v4
+      - run: echo "Build complete, deploying..."
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          publish_branch: gh-pages
