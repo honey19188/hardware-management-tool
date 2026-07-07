@@ -1,3 +1,7 @@
-@
-node_modules
-
+node_modules/
+dist/
+.vite/
+key.txt
+node.exe
+sea-prep.blob
+*.blob
